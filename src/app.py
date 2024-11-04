@@ -2,6 +2,7 @@ from get_df import get_df
 from pandas import DataFrame
 from naive_bayes_model import execute_naive_bayes
 from tree_classifier_model import execute_tree_selector
+from linear_regression_model import execute_linear_regression
 from colorama import just_fix_windows_console
 
 if __name__ == "__main__":
@@ -11,6 +12,7 @@ if __name__ == "__main__":
     # * Executing Models
     naive_bayes_accuracy = execute_naive_bayes(df)
     tree_classifier_accuracy = execute_tree_selector(df)
+    linear_regression_accuracy = execute_linear_regression(df)
 
     df_acuracy = DataFrame(
         {
