@@ -1,14 +1,16 @@
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-from sklearn.naive_bayes import GaussianNB
-from sklearn.preprocessing import StandardScaler
+from matplotlib import pyplot as plt
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 import seaborn as sns
-from colorama import Fore, Back, Style
+from colorama import Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
 
 
-def execute_naive_bayes(df):
+def execute_tree_selector(df):
+    print(Back.GREEN + Style.BRIGHT + "Tree Classifier" + Style.RESET_ALL)
+
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
@@ -19,15 +21,9 @@ def execute_naive_bayes(df):
     print(y)
 
     print("--- Train Test Split ---")
-    X_train, X_test, y_train, y_test = train_test_split(
+    X_train, X_test, Y_train, Y_Test = train_test_split(
         X, y, test_size=0.25, random_state=True
     )
-
-    print("--- Scale ---")
-    sc = StandardScaler()
-
-    X_train = sc.fit_transform(X_train)
-    X_test = sc.transform(X_test)
 
     print("++ X_train ++")
     print(X_train)
@@ -35,14 +31,30 @@ def execute_naive_bayes(df):
     print(X_test)
 
     print("--- Model ---")
-    clf = GaussianNB()
-    clf.fit(X_train, y_train)
+    clf = DecisionTreeClassifier()
 
-    y_pred = clf.predict(X_test)
+    # Training
+    tree = clf.fit(X_train, Y_train)
+    print("----PREDICTION-----")
+    y_pred = tree.predict(X_test)
+    print(y_pred)
+
+    print("--- Graph ---")
+    try:
+        plt.figure(figsize=(25, 20))
+        plot_tree(
+            tree,
+            feature_names=list(X.columns.values),
+            class_names=["Spam", "Ham"],
+            filled=True,
+        )
+        plt.show()
+    except:
+        print(Style.BRIGHT + Back.RED + "Error: Tree can't be showed" + Style.RESET_ALL)
 
     print("--- Confusion Matrix ---")
 
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(Y_Test, y_pred)
     try:
         sns.heatmap(cm, annot=True)
     except:
@@ -61,4 +73,4 @@ if __name__ == "__main__":
     just_fix_windows_console()
 
     df = get_df()
-    execute_naive_bayes(df)
+    execute_tree_selector(df)
