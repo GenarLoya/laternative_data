@@ -1,12 +1,12 @@
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-from sklearn.naive_bayes import GaussianNB
-from sklearn.preprocessing import StandardScaler
 import seaborn as sns
 from colorama import Fore, Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
 
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
 def execute_linear_regression(df):
     X = df.drop("is_spam", axis=1)
@@ -14,18 +14,48 @@ def execute_linear_regression(df):
 
     print("---Variables---")
     print("X:")
-    print(X)
+    print(X.head())
     print("Y:")
-    print(y)
+    print(y.head())
 
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.25, random_state=True
+        X, y, test_size=0.25, random_state=42
     )
+    print('--- Split ---')
+    print('X_train:', X_train.shape)
+    print('X_test:', X_test.shape)
+    print('y_train:', y_train.shape)
+    print('y_test:', y_test.shape)
+
+    print("--- Model ---")
+    
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+    print('--- Prediction ---')
+    print('y_pred:', y_pred)
+
+    y_pred_binary = [1 if pred > 0.5 else 0 for pred in y_pred]
+
+    score = model.score(X_test, y_test)
+    print('--- Score ---')
+    print('score:', score)
+
+    print("--- Confusion Matrix ---")
+
+    cm = confusion_matrix(y_test, y_pred_binary)
+    try:
+        sns.heatmap(cm, annot=True, fmt="d")
+        plt.show()
+    except Exception as e:
+        print(
+            Style.BRIGHT + Back.RED + f"Error: Heatmap can't be showed: {e}" + Style.RESET_ALL
+        )
 
     print(Style.BRIGHT + Back.LIGHTMAGENTA_EX + "++ Accuracy ++" + Style.RESET_ALL)
-    # TODO: Implement Real Accuracy here
-    accuracy = 0.0
+    accuracy = cm.trace() / cm.sum()
     print(accuracy)
 
     return accuracy
