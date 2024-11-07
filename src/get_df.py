@@ -44,7 +44,8 @@ def get_df():
     print("Getting vocabulary...")
     vocabulary = vectorizer.get_feature_names_out()
     print("Vocabulary...")
-    print(vocabulary)
+    for i in range(len(vocabulary)):
+        print(vocabulary[i])
 
     print("Transforming documents...")
     df = pd.DataFrame(X.toarray(), columns=vocabulary)
@@ -57,3 +58,7 @@ def get_df():
     print(df)
 
     return df
+
+
+if __name__ == "__main__":
+    get_df()

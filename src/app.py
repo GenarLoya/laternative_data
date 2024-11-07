@@ -16,8 +16,8 @@ if __name__ == "__main__":
     df = get_df()
 
     # * Executing Models
-    naive_bayes_accuracy = 0  # execute_naive_bayes(df)
-    tree_classifier_accuracy = 0  # execute_tree_selector(df)
+    naive_bayes_accuracy = execute_naive_bayes(df)
+    tree_classifier_accuracy = execute_tree_selector(df)
     linear_regression_accuracy = 0  # execute_linear_regression(df)
     neuronal_model_accuracy = 0  # execute_neuronal_model(df)
 
