@@ -36,11 +36,11 @@ def execute_neuronal_model(
     y = df["is_spam"]
 
     X_binary = X.map(lambda x: 1 if x > 0 else 0)
-    print("---Variables---")
-    print("X:")
-    print(X_binary)
-    print("Y:")
-    print(y)
+    # print("---Variables---")
+    # print("X:")
+    # print(X_binary)
+    # print("Y:")
+    # print(y)
 
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(

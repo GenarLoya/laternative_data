@@ -23,28 +23,28 @@ def execute_tree_selector(df, test_size=0.25, random_state=42):
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
-    print("---Variables---")
-    print("X:")
-    print(X)
-    print("Y:")
-    print(y)
+    # print("---Variables---")
+    # print("X:")
+    # print(X)
+    # print("Y:")
+    # print(y)
 
     print("--- Train Test Split ---")
     X_train, X_test, Y_train, Y_Test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
     )
 
-    print("++ X_train ++")
-    print(X_train)
-    print("++ X_test ++")
-    print(X_test)
+    # print("++ X_train ++")
+    # print(X_train)
+    # print("++ X_test ++")
+    # print(X_test)
 
     print("--- Model ---")
     clf = DecisionTreeClassifier()
 
     # Training
     tree = clf.fit(X_train, Y_train)
-    print("----PREDICTION-----")
+    # print("----PREDICTION-----")
     y_pred = tree.predict(X_test)
     print(y_pred)
 
