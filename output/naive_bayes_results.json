@@ -1,0 +1,17 @@
+[
+    {
+        "accuracy": 0.905645784996133,
+        "test_size": 0.25,
+        "random_state": 42
+    },
+    {
+        "accuracy": 0.9013921113689095,
+        "test_size": 0.5,
+        "random_state": 43
+    },
+    {
+        "accuracy": 0.9007476153647848,
+        "test_size": 0.75,
+        "random_state": 44
+    }
+]
