@@ -104,4 +104,4 @@ if __name__ == "__main__":
     just_fix_windows_console()
 
     df = get_df()
-    execute_linear_regression(df)
+    execute_linear_regression_tests_variants(df)
