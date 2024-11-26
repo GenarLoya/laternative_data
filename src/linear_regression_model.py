@@ -92,9 +92,16 @@ def execute_linear_regression_tests_variants(df):
 
     acurracies = []
 
-    acurracies.append(execute_linear_regression(df, test_size=0.25, random_state=42))
-    acurracies.append(execute_linear_regression(df, test_size=0.5, random_state=43))
-    acurracies.append(execute_linear_regression(df, test_size=0.75, random_state=44))
+    test_sizes = [0.25, 0.5, 0.75]
+    random_states = [42, 43, 44]
+
+    for test_size in test_sizes:
+        for random_state in random_states:
+            acurracies.append(
+                execute_linear_regression(
+                    df, test_size=test_size, random_state=random_state
+                )
+            )
 
     # * Better accuracy
     better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
