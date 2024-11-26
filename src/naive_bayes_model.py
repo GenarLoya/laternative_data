@@ -8,7 +8,15 @@ from get_df import get_df
 from colorama import just_fix_windows_console
 
 
-def execute_naive_bayes(df):
+def execute_naive_bayes(df, test_size=0.25, random_state=42):
+    print(
+        Style.BRIGHT
+        + Fore.LIGHTMAGENTA_EX
+        + "++ 󰙨 Testing for test_size={} && random_state={} ++".format(
+            test_size, random_state
+        )
+        + Style.RESET_ALL
+    )
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
@@ -20,7 +28,7 @@ def execute_naive_bayes(df):
 
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.25, random_state=True
+        X, y, test_size=test_size, random_state=random_state
     )
 
     print("--- Scale ---")
@@ -54,11 +62,37 @@ def execute_naive_bayes(df):
     accuracy = cm.trace() / cm.sum()
     print(accuracy)
 
-    return accuracy
+    return {
+        "accuracy": accuracy,
+        "test_size": test_size,
+        "random_state": random_state,
+    }
+
+
+def execute_naive_bayes_tests_variants(df):
+    print(
+        Style.BRIGHT
+        + Fore.LIGHTMAGENTA_EX
+        + "--- Naive Bayes 󰙨 Tests ---"
+        + Style.RESET_ALL
+    )
+
+    acurracies = []
+
+    acurracies.append(execute_naive_bayes(df, test_size=0.25, random_state=42))
+    acurracies.append(execute_naive_bayes(df, test_size=0.5, random_state=43))
+    acurracies.append(execute_naive_bayes(df, test_size=0.75, random_state=44))
+
+    # * Better accuracy
+    better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
+    print("--- Better Accuracy ---")
+    print(better_accuracy)
+
+    return better_accuracy
 
 
 if __name__ == "__main__":
     just_fix_windows_console()
 
     df = get_df()
-    execute_naive_bayes(df)
+    execute_naive_bayes_tests_variants(df)

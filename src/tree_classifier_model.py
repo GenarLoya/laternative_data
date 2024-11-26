@@ -5,10 +5,10 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 import seaborn as sns
 from colorama import Back, Style
 from get_df import get_df
-from colorama import just_fix_windows_console
+from colorama import just_fix_windows_console, Fore
 
 
-def execute_tree_selector(df):
+def execute_tree_selector(df, test_size=0.25, random_state=42):
     print(Back.GREEN + Style.BRIGHT + "Tree Classifier" + Style.RESET_ALL)
 
     X = df.drop("is_spam", axis=1)
@@ -22,7 +22,7 @@ def execute_tree_selector(df):
 
     print("--- Train Test Split ---")
     X_train, X_test, Y_train, Y_Test = train_test_split(
-        X, y, test_size=0.25, random_state=True
+        X, y, test_size=test_size, random_state=random_state
     )
 
     print("++ X_train ++")
@@ -66,11 +66,44 @@ def execute_tree_selector(df):
     accuracy = cm.trace() / cm.sum()
     print(accuracy)
 
-    return accuracy
+    return {
+        "accuracy": accuracy,
+        "test_size": test_size,
+        "random_state": random_state,
+    }
+
+
+def execute_tree_selector_tests_variants(df):
+    print(
+        Style.BRIGHT
+        + Fore.LIGHTMAGENTA_EX
+        + "--- Tree Classifier 󰙨 Tests ---"
+        + Style.RESET_ALL
+    )
+
+    acurracies = []
+
+    test_sizes = [0.25, 0.5, 0.75]
+    random_states = [42, 43, 44]
+
+    for test_size in test_sizes:
+        for random_state in random_states:
+            acurracies.append(
+                execute_tree_selector(
+                    df, test_size=test_size, random_state=random_state
+                )
+            )
+
+    # * Better accuracy
+    better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
+    print("--- Better Accuracy ---")
+    print(better_accuracy)
+
+    return better_accuracy
 
 
 if __name__ == "__main__":
     just_fix_windows_console()
 
     df = get_df()
-    execute_tree_selector(df)
+    execute_tree_selector_tests_variants(df)
