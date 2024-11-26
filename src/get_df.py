@@ -15,13 +15,7 @@ relative_ham_path = os.path.join(current_dir, route_ham)
 
 
 def get_df():
-    print(
-        Back.GREEN
-        + Fore.LIGHTMAGENTA_EX
-        + Fore.WHITE
-        + "Getting processed data"
-        + Style.RESET_ALL
-    )
+    print(Back.GREEN + Fore.BLACK + "Getting processed data" + Style.RESET_ALL)
     print("Route ham:", relative_ham_path)
     ham_files = glob.glob(os.path.join(relative_ham_path, "*.txt"))
     print("Processing ham files...")
@@ -44,24 +38,24 @@ def get_df():
     print("Fitting vectorizer...")
     X = vectorizer.fit_transform(documentos)
 
-    print("X...")
-    print(X)
+    # print("X...")
+    # print(X)
 
     print("Getting vocabulary...")
     vocabulary = vectorizer.get_feature_names_out()
     print("Vocabulary...")
-    for i in range(len(vocabulary)):
-        print(vocabulary[i])
+    # for i in range(len(vocabulary)):
+    #     print(vocabulary[i])
 
     print("Transforming documents...")
     df = pd.DataFrame(X.toarray(), columns=vocabulary)
 
     print("Dataframe...")
-    print(df)
+    # print(df)
 
     print("Labels...")
     df["is_spam"] = labels
-    print(df)
+    # print(df)
 
     return df
 

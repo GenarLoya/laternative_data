@@ -7,6 +7,7 @@ from colorama import Fore, Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
 from save_json import save_json
+from matplotlib import pyplot as plt
 
 
 def execute_naive_bayes(df, test_size=0.25, random_state=42):
@@ -21,11 +22,11 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
-    print("---Variables---")
-    print("X:")
-    print(X)
-    print("Y:")
-    print(y)
+    # print("---Variables---")
+    # print("X:")
+    # print(X)
+    # print("Y:")
+    # print(y)
 
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
@@ -38,10 +39,10 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
 
-    print("++ X_train ++")
-    print(X_train)
-    print("++ X_test ++")
-    print(X_test)
+    # print("++ X_train ++")
+    # print(X_train)
+    # print("++ X_test ++")
+    # print(X_test)
 
     print("--- Model ---")
     clf = GaussianNB()
@@ -49,11 +50,19 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
 
     y_pred = clf.predict(X_test)
 
-    print("--- Confusion Matrix ---")
-
     cm = confusion_matrix(y_test, y_pred)
+
+    print("--- Confusion Matrix ---")
+    print(cm)
+
     try:
+        plt.figure()
         sns.heatmap(cm, annot=True)
+        plt.title(
+            "Confusion Matrix for test_size={} & random_state={}".format(
+                test_size, random_state
+            )
+        )
     except:
         print(
             Style.BRIGHT + Back.RED + "Error: Heatmap can't be showed" + Style.RESET_ALL
@@ -80,14 +89,22 @@ def execute_naive_bayes_tests_variants(df):
 
     acurracies = []
 
-    acurracies.append(execute_naive_bayes(df, test_size=0.25, random_state=42))
-    acurracies.append(execute_naive_bayes(df, test_size=0.5, random_state=43))
-    acurracies.append(execute_naive_bayes(df, test_size=0.75, random_state=44))
+    test_sizes = [0.10 * i for i in range(1, 8)]
+
+    for test_size in test_sizes:
+        acurracies.append(execute_naive_bayes(df, test_size=test_size))
 
     # * Better accuracy
     save_json(acurracies, "naive_bayes_results.json")
 
     better_accuracy = None
+
+    for acurracy in acurracies:
+        if better_accuracy is None:
+            better_accuracy = acurracy
+        else:
+            if acurracy["accuracy"] > better_accuracy["accuracy"]:
+                better_accuracy = acurracy
 
     for acurracy in acurracies:
         if better_accuracy is None:
