@@ -4,6 +4,7 @@ import seaborn as sns
 from colorama import Fore, Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
+from save_json import save_json
 
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
@@ -13,7 +14,7 @@ from sklearn.preprocessing import LabelEncoder
 def execute_linear_regression(df, test_size=0.25, random_state=42):
     print(
         Style.BRIGHT
-        + Fore.LIGHTMAGENTA_EX
+        + Fore.BLACK
         + "++ 󰙨 Testing for test_size={} && random_state={} ++".format(
             test_size, random_state
         )
@@ -104,6 +105,7 @@ def execute_linear_regression_tests_variants(df):
             )
 
     # * Better accuracy
+    save_json(acurracies, name="linear_regression_results.json")
     better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
     print("--- Better Accuracy ---")
     print(better_accuracy)

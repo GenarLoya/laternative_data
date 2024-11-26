@@ -6,6 +6,7 @@ import seaborn as sns
 from colorama import Fore, Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
+from save_json import save_json
 
 
 def execute_naive_bayes(df, test_size=0.25, random_state=42):
@@ -84,6 +85,7 @@ def execute_naive_bayes_tests_variants(df):
     acurracies.append(execute_naive_bayes(df, test_size=0.75, random_state=44))
 
     # * Better accuracy
+    save_json(acurracies, "naive_bayes_results.json")
     better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
     print("--- Better Accuracy ---")
     print(better_accuracy)

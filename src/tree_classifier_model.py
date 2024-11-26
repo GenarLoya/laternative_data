@@ -6,10 +6,19 @@ import seaborn as sns
 from colorama import Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console, Fore
+from save_json import save_json
 
 
 def execute_tree_selector(df, test_size=0.25, random_state=42):
-    print(Back.GREEN + Style.BRIGHT + "Tree Classifier" + Style.RESET_ALL)
+    print(
+        Back.GREEN
+        + Fore.BLACK
+        + Style.BRIGHT
+        + "++ Test for test_size={} && random_state={} ++".format(
+            test_size, random_state
+        )
+        + Style.RESET_ALL
+    )
 
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
@@ -95,6 +104,7 @@ def execute_tree_selector_tests_variants(df):
             )
 
     # * Better accuracy
+    save_json(acurracies, name="tree_classifier_results.json")
     better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
     print("--- Better Accuracy ---")
     print(better_accuracy)

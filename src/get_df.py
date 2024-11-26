@@ -15,7 +15,13 @@ relative_ham_path = os.path.join(current_dir, route_ham)
 
 
 def get_df():
-    print(Back.GREEN + Fore.WHITE + "Getting processed data" + Style.RESET_ALL)
+    print(
+        Back.GREEN
+        + Fore.LIGHTMAGENTA_EX
+        + Fore.WHITE
+        + "Getting processed data"
+        + Style.RESET_ALL
+    )
     print("Route ham:", relative_ham_path)
     ham_files = glob.glob(os.path.join(relative_ham_path, "*.txt"))
     print("Processing ham files...")

@@ -13,6 +13,7 @@ from sklearn import metrics
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import pandas as pd
 import seaborn as sns
+from save_json import save_json
 
 
 def execute_neuronal_model(
@@ -25,7 +26,7 @@ def execute_neuronal_model(
 ):
     print(
         Style.BRIGHT
-        + Fore.LIGHTMAGENTA_EX
+        + Fore.BLACK
         + "++ 󰙨 Testing for test_size={} && random_state={} && activation={} && hidden_layer_sizes={} && max_iter={} ++".format(
             test_size, random_state, activation, hidden_layer_sizes, max_iter
         )
@@ -125,6 +126,7 @@ def execute_neuronal_model_tests_variants(df):
             # print(acurracies)
 
     # * Better accuracy
+    save_json(acurracies, name="neuronal_model_results.json")
     better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
     print("--- Better Accuracy ---")
     print(better_accuracy)
