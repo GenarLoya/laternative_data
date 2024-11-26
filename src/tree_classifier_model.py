@@ -105,7 +105,15 @@ def execute_tree_selector_tests_variants(df):
 
     # * Better accuracy
     save_json(acurracies, name="tree_classifier_results.json")
-    better_accuracy = acurracies.sort(key=lambda x: x["accuracy"], reverse=True)[0]
+    better_accuracy = None
+
+    for acurracy in acurracies:
+        if better_accuracy is None:
+            better_accuracy = acurracy
+        else:
+            if acurracy["accuracy"] > better_accuracy["accuracy"]:
+                better_accuracy = acurracy
+
     print("--- Better Accuracy ---")
     print(better_accuracy)
 
