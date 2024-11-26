@@ -1,17 +1,37 @@
 [
     {
-        "accuracy": 0.905645784996133,
-        "test_size": 0.25,
+        "accuracy": 0.9073359073359073,
+        "test_size": 0.1,
         "random_state": 42
     },
     {
-        "accuracy": 0.9013921113689095,
-        "test_size": 0.5,
-        "random_state": 43
+        "accuracy": 0.9024154589371981,
+        "test_size": 0.2,
+        "random_state": 42
     },
     {
-        "accuracy": 0.9007476153647848,
-        "test_size": 0.75,
-        "random_state": 44
+        "accuracy": 0.9072164948453608,
+        "test_size": 0.30000000000000004,
+        "random_state": 42
+    },
+    {
+        "accuracy": 0.9062348960850652,
+        "test_size": 0.4,
+        "random_state": 42
+    },
+    {
+        "accuracy": 0.9091260634184068,
+        "test_size": 0.5,
+        "random_state": 42
+    },
+    {
+        "accuracy": 0.9123711340206185,
+        "test_size": 0.6000000000000001,
+        "random_state": 42
+    },
+    {
+        "accuracy": 0.9016846175089754,
+        "test_size": 0.7000000000000001,
+        "random_state": 42
     }
 ]
