@@ -7,6 +7,7 @@ from colorama import Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console, Fore
 from save_json import save_json
+from save_show_heatmap_as_image import save_show_heatmap_as_image
 
 
 def execute_tree_selector(df, test_size=0.25, random_state=42):
@@ -65,7 +66,16 @@ def execute_tree_selector(df, test_size=0.25, random_state=42):
 
     cm = confusion_matrix(Y_Test, y_pred)
     try:
-        sns.heatmap(cm, annot=True)
+        save_show_heatmap_as_image(
+            cm,
+            folder="tree_classifier",
+            filename="conf_test_size_{}_random_state_{}.png".format(
+                test_size, random_state
+            ),
+            title="Confusion Matrix for test_size={} & random_state={}".format(
+                test_size, random_state
+            ),
+        )
     except:
         print(
             Style.BRIGHT + Back.RED + "Error: Heatmap can't be showed" + Style.RESET_ALL

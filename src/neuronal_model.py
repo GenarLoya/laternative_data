@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import pandas as pd
 import seaborn as sns
 from save_json import save_json
-from matplotlib import pyplot as plt
+from save_show_heatmap_as_image import save_show_heatmap_as_image
 
 
 def execute_neuronal_model(
@@ -73,12 +73,15 @@ def execute_neuronal_model(
 
     cm = confusion_matrix(y_test, y_pred)
     try:
-        plt.figure()
-        sns.heatmap(cm, annot=True)
-        plt.title(
-            "Confusion Matrix for test_size={} & random_state={} and activation={} & hidden_layer_sizes={}".format(
-                test_size, random_state
-            )
+        save_show_heatmap_as_image(
+            cm,
+            folder="neuronal_model",
+            filename="conf_test_size_{}_random_state_{}_activation_{}_hidden_layer_sizes_{}.png".format(
+                test_size, random_state, activation, hidden_layer_sizes
+            ),
+            title="Confusion Matrix for test_size={} & random_state={} and activation={} & hidden_layer_sizes={}".format(
+                test_size, random_state, activation, hidden_layer_sizes
+            ),
         )
     except Exception as e:
         print(

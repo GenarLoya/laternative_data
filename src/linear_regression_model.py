@@ -9,6 +9,7 @@ from save_json import save_json
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import LabelEncoder
+from save_show_heatmap_as_image import save_show_heatmap_as_image
 
 
 def execute_linear_regression(df, test_size=0.25, random_state=42):
@@ -62,8 +63,16 @@ def execute_linear_regression(df, test_size=0.25, random_state=42):
 
     cm = confusion_matrix(y_test, y_pred_binary)
     try:
-        sns.heatmap(cm, annot=True, fmt="d")
-        plt.show()
+        save_show_heatmap_as_image(
+            cm,
+            folder="linear_regression",
+            filename="conf_test_size_{}_random_state_{}.png".format(
+                test_size, random_state
+            ),
+            title="Confusion Matrix for test_size={} & random_state={}".format(
+                test_size, random_state
+            ),
+        )
     except Exception as e:
         print(
             Style.BRIGHT
