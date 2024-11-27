@@ -2,12 +2,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler
-import seaborn as sns
 from colorama import Fore, Back, Style
 from get_df import get_df
 from colorama import just_fix_windows_console
 from save_json import save_json
 from matplotlib import pyplot as plt
+from save_show_heatmap_as_image import save_show_heatmap_as_image
 
 
 def execute_naive_bayes(df, test_size=0.25, random_state=42):
@@ -22,12 +22,6 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
-    # print("---Variables---")
-    # print("X:")
-    # print(X)
-    # print("Y:")
-    # print(y)
-
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
@@ -38,11 +32,6 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
 
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
-
-    # print("++ X_train ++")
-    # print(X_train)
-    # print("++ X_test ++")
-    # print(X_test)
 
     print("--- Model ---")
     clf = GaussianNB()
@@ -56,12 +45,15 @@ def execute_naive_bayes(df, test_size=0.25, random_state=42):
     print(cm)
 
     try:
-        plt.figure()
-        sns.heatmap(cm, annot=True)
-        plt.title(
-            "Confusion Matrix for test_size={} & random_state={}".format(
+        save_show_heatmap_as_image(
+            cm,
+            folder="naive_bayes",
+            filename="conf_test_size_{}_random_state_{}.png".format(
                 test_size, random_state
-            )
+            ),
+            title="Confusion Matrix for test_size={} & random_state={}".format(
+                test_size, random_state
+            ),
         )
     except:
         print(

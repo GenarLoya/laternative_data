@@ -27,12 +27,6 @@ def execute_linear_regression(df, test_size=0.25, random_state=42):
 
     X_binary = X.map(lambda x: 1 if x > 0 else 0)
 
-    # print("--- Variables ---")
-    # print("X:")
-    # print(X_binary.head())
-    # print("Y:")
-    # print(y.head())
-
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
         X_binary, y, test_size=test_size, random_state=random_state
