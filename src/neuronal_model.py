@@ -14,6 +14,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import pandas as pd
 import seaborn as sns
 from save_json import save_json
+from matplotlib import pyplot as plt
 
 
 def execute_neuronal_model(
@@ -27,6 +28,7 @@ def execute_neuronal_model(
     print(
         Style.BRIGHT
         + Fore.BLACK
+        + Back.MAGENTA
         + "++ 󰙨 Testing for test_size={} && random_state={} && activation={} && hidden_layer_sizes={} && max_iter={} ++".format(
             test_size, random_state, activation, hidden_layer_sizes, max_iter
         )
@@ -35,6 +37,7 @@ def execute_neuronal_model(
     X = df.drop("is_spam", axis=1)
     y = df["is_spam"]
 
+    print("--- Variables processing ---")
     X_binary = X.map(lambda x: 1 if x > 0 else 0)
     # print("---Variables---")
     # print("X:")
@@ -70,7 +73,13 @@ def execute_neuronal_model(
 
     cm = confusion_matrix(y_test, y_pred)
     try:
-        sns.heatmap(cm, annot=True, fmt="d")
+        plt.figure()
+        sns.heatmap(cm, annot=True)
+        plt.title(
+            "Confusion Matrix for test_size={} & random_state={} and activation={} & hidden_layer_sizes={}".format(
+                test_size, random_state
+            )
+        )
     except Exception as e:
         print(
             Style.BRIGHT
@@ -113,17 +122,17 @@ def execute_neuronal_model_tests_variants(df):
 
     for layer in layer_variants:
         for activation in activation_variants:
-            acurracies.append(
-                execute_neuronal_model(
-                    df,
-                    test_size=0.25,
-                    random_state=42,
-                    activation=activation,
-                    hidden_layer_sizes=layer,
-                )
+            acurr = execute_neuronal_model(
+                df,
+                test_size=0.25,
+                random_state=42,
+                activation=activation,
+                hidden_layer_sizes=layer,
             )
 
-            # print(acurracies)
+            acurracies.append(acurr)
+
+        # print(acurracies)
 
     # * Better accuracy
     save_json(acurracies, name="neuronal_model_results.json")
