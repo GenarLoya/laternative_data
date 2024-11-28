@@ -1,11 +1,11 @@
 [
     {
-        "accuracy": 0.9373549883990719,
+        "accuracy": 0.9412219644238206,
         "test_size": 0.25,
         "random_state": 42
     },
     {
-        "accuracy": 0.9497293116782676,
+        "accuracy": 0.951276102088167,
         "test_size": 0.25,
         "random_state": 43
     },
@@ -15,17 +15,17 @@
         "random_state": 44
     },
     {
-        "accuracy": 0.9377416860015468,
+        "accuracy": 0.9389017788089714,
         "test_size": 0.5,
         "random_state": 42
     },
     {
-        "accuracy": 0.9373549883990719,
+        "accuracy": 0.9389017788089714,
         "test_size": 0.5,
         "random_state": 43
     },
     {
-        "accuracy": 0.9106728538283063,
+        "accuracy": 0.9156999226604795,
         "test_size": 0.5,
         "random_state": 44
     },
@@ -35,12 +35,12 @@
         "random_state": 42
     },
     {
-        "accuracy": 0.9265274555297757,
+        "accuracy": 0.9280742459396751,
         "test_size": 0.75,
         "random_state": 43
     },
     {
-        "accuracy": 0.9159577210621294,
+        "accuracy": 0.9151843258571797,
         "test_size": 0.75,
         "random_state": 44
     }
