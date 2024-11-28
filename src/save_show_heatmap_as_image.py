@@ -14,7 +14,7 @@ def save_show_heatmap_as_image(
 
     plt.figure()
     sns.heatmap(confusion_matrix, annot=True, fmt="d")
-    plt.title("Confusion Matrix")
+    plt.title(title)
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
 
