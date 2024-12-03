@@ -15,6 +15,11 @@ import pandas as pd
 import seaborn as sns
 from save_json import save_json
 from save_show_heatmap_as_image import save_show_heatmap_as_image
+import joblib
+from os import path
+
+current_dir = path.dirname(path.abspath(__file__))
+output_path = path.join(current_dir, "../output")
 
 
 def execute_neuronal_model(
@@ -24,6 +29,7 @@ def execute_neuronal_model(
     activation="relu",
     hidden_layer_sizes=(256, 128, 64, 32),
     max_iter=1000,
+    save_model=False,
 ):
     print(
         Style.BRIGHT
@@ -39,11 +45,6 @@ def execute_neuronal_model(
 
     print("--- Variables processing ---")
     X_binary = X.map(lambda x: 1 if x > 0 else 0)
-    # print("---Variables---")
-    # print("X:")
-    # print(X_binary)
-    # print("Y:")
-    # print(y)
 
     print("--- Train Test Split ---")
     X_train, X_test, y_train, y_test = train_test_split(
@@ -59,7 +60,7 @@ def execute_neuronal_model(
     mlp = MLPClassifier(
         hidden_layer_sizes=hidden_layer_sizes,
         max_iter=max_iter,
-        random_state=1,
+        random_state=random_state,
         verbose=True,
         activation=activation,
     )
@@ -67,7 +68,6 @@ def execute_neuronal_model(
 
     print("--- Confusion Matrix ---")
     y_pred = mlp.predict(X_test)
-    # print(y_pred)
 
     accuracy = accuracy_score(y_test, y_pred)
 
@@ -92,16 +92,26 @@ def execute_neuronal_model(
         )
 
     print(Style.BRIGHT + Back.LIGHTMAGENTA_EX + "++ Accuracy ++" + Style.RESET_ALL)
-    accuracy = cm.trace() / cm.sum()
     print(accuracy)
 
-    return {
+    result = {
         "accuracy": accuracy,
         "test_size": test_size,
         "random_state": random_state,
         "activation": activation,
         "hidden_layer_sizes": hidden_layer_sizes,
     }
+
+    if save_model:
+        print("--- Saving Model ---")
+        model_filename = "model_test_size_{}_random_state_{}_activation_{}_hidden_layer_sizes_{}.joblib".format(
+            test_size, random_state, activation, hidden_layer_sizes
+        )
+        joblib.dump(mlp, path.join(output_path, model_filename))
+        result["model_path"] = model_filename
+        print(f"Model saved as {model_filename}")
+
+    return result
 
 
 def execute_neuronal_model_tests_variants(df):
