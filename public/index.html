@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spam Haus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex items-center justify-center h-screen">
+    <div class="w-1/2 max-w-lg flex flex-col items-center justify-center">
+      <h1
+        class="text-3xl font-bold text-center text-gray-800 mb-4"
+      >Spam Haus</h1>
+      <textarea
+        id="email"
+        class="w-full p-2 border-2 rounded-lg"
+        placeholder="Enter your email text here..."
+      ></textarea
+      ><br />
+      <div class="flex justify-center justify-between">
+        <button 
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-auto"
+      onclick="predictSpam()">Predecir</button>
+      <p id="result"
+        class="text-center text-gray-800 text-xl font-semibold text-red-500"
+      ></p>
+      </div>
+    </div>
+    <img src="..\static\chilldc.webp" alt="Spam Haus Logo" />
+    <script>
+      async function predictSpam() {
+        const email = document.getElementById("email").value;
+        const response = await fetch("/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: email }),
+        });
+        const data = await response.json();
+        document.getElementById("result").textContent = data.prediction
+          ? `Prediction: ${data.prediction}`
+          : `Error: ${data.error}`;
+
+      }
+    </script>
+  </body>
+</html>

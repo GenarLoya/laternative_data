@@ -1,1 +1,3 @@
 /.venv
+/output/neuronal_model.joblib
+/output/model_test_size_0.25_random_state_42_activation_relu_hidden_layer_sizes_(256, 128, 64, 32).joblib

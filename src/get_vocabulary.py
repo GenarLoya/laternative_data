@@ -4,19 +4,18 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 from colorama import Fore, Back, Style
+from load_model import load_model
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 route_ham = "../data/ham"
 route_spam = "../data/spam"
-route_output = "../output"
 
 relative_spam_path = os.path.join(current_dir, route_spam)
 relative_ham_path = os.path.join(current_dir, route_ham)
-relative_output_path = os.path.join(current_dir, route_output)
 
 
-def get_df():
+def get_vocabulary():
     print(Back.GREEN + Fore.BLACK + "Getting processed data" + Style.RESET_ALL)
     print("Route ham:", relative_ham_path)
     ham_files = glob.glob(os.path.join(relative_ham_path, "*.txt"))
@@ -45,22 +44,56 @@ def get_df():
 
     print("Getting vocabulary...")
     vocabulary = vectorizer.get_feature_names_out()
-    print("Vocabulary...")
-    # for i in range(len(vocabulary)):
-    #     print(vocabulary[i])
 
-    print("Transforming documents...")
-    df = pd.DataFrame(X.toarray(), columns=vocabulary)
-
-    print("Dataframe...")
-    # print(df)
-
-    print("Labels...")
-    df["is_spam"] = labels
-    # print(df)
-
-    return df
+    return vocabulary
 
 
+def get_vocabulary_count(email, vocabulary):
+
+    vectorizer = CountVectorizer(vocabulary=vocabulary)
+
+    X = vectorizer.fit_transform([email])
+
+    counts = X.toarray().flatten()
+
+    return counts
+
+
+## Example loading model with custom input
 if __name__ == "__main__":
-    get_df()
+    vocabulary = get_vocabulary()
+    print(vocabulary)
+
+    email = """
+Subject: buy cheap prescription drugs online dd
+top rated online store .
+hot new - levitra / lipitor / nexium
+weekly speciasls on all our drugs .
+- zocor
+- soma
+- ambien
+- phentermine
+- vlagra
+- discount generic ' s on all
+- more
+next day discrete shipping on all products !
+http : / / www . rxstoreusa . biz / shopping
+please , i wish to receive no more discounts on valuable items .
+http : / / www . rxstoreusa . biz / a . html
+jet
+djjdnj 33 xks npvjkps ekhvhdqkxhm xvgwk
+cpjtrsbqgogmjnyi
+uknuilrj
+moqwrcaigwvvfpsljzycp
+k p
+e p
+gp c j
+    """
+    counts = get_vocabulary_count(email, vocabulary)
+
+    model = load_model()
+    for i in range(len(vocabulary)):
+        if counts[i] != 0:
+            print(vocabulary[i], counts[i])
+    y_pred = model.predict([counts])
+    print(y_pred)

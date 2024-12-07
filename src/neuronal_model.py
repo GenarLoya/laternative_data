@@ -47,6 +47,7 @@ def execute_neuronal_model(
     X_binary = X.map(lambda x: 1 if x > 0 else 0)
 
     print("--- Train Test Split ---")
+    print("x_test", X_test)
     X_train, X_test, y_train, y_test = train_test_split(
         X_binary, y, test_size=test_size, random_state=random_state
     )
@@ -104,9 +105,7 @@ def execute_neuronal_model(
 
     if save_model:
         print("--- Saving Model ---")
-        model_filename = "model_test_size_{}_random_state_{}_activation_{}_hidden_layer_sizes_{}.joblib".format(
-            test_size, random_state, activation, hidden_layer_sizes
-        )
+        model_filename = "neuronal_model.joblib"
         joblib.dump(mlp, path.join(output_path, model_filename))
         result["model_path"] = model_filename
         print(f"Model saved as {model_filename}")
