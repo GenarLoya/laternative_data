@@ -3,6 +3,7 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer
 from load_model import load_model
 from get_vocabulary import get_vocabulary, get_vocabulary_count
+from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -14,6 +15,9 @@ app.static_folder = public_dir
 # Cargar el vocabulario y el modelo en el inicio del servidor
 vocabulary = get_vocabulary()
 model = load_model()
+
+# Cors para permitir solicitudes de cualquier origen
+CORS(app)
 
 
 @app.route("/predict", methods=["POST"])
@@ -32,6 +36,7 @@ def predict():
             )
 
         email = data["text"]
+        print(email)
 
         # Vectorizar el texto usando el vocabulario
         counts = get_vocabulary_count(email, vocabulary)

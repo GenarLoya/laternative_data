@@ -32,6 +32,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-d3-cloud": "^1.0.6",
     "react-dom": "^16.14.0",
-    "recharts": "^2.14.1"
+    "recharts": "^2.14.1",
+    "sonner": "^1.7.1"
   }
 }
