@@ -4,11 +4,12 @@ from sklearn.feature_extraction.text import CountVectorizer
 from load_model import load_model
 from get_vocabulary import get_vocabulary, get_vocabulary_count
 from flask_cors import CORS
+from os import path
 
 app = Flask(__name__)
 
 # Configurar la carpeta pública
-public_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../public")
+public_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../dist")
 os.makedirs(public_dir, exist_ok=True)
 app.static_folder = public_dir
 
@@ -58,7 +59,7 @@ def serve_index():
     return send_from_directory(public_dir, "index.html")
 
 
-@app.route("/static/<path:filename>", methods=["GET"])
+@app.route("/<path:filename>", methods=["GET"])
 def serve_static(filename):
     return send_from_directory(public_dir, filename)
 

@@ -1,0 +1,162 @@
+[
+    {
+        "accuracy": 0.9853054911059551,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "relu",
+        "hidden_layer_sizes": [
+            256,
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.974477958236659,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "tanh",
+        "hidden_layer_sizes": [
+            256,
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9706109822119103,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "identity",
+        "hidden_layer_sizes": [
+            256,
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.979891724671307,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "logistic",
+        "hidden_layer_sizes": [
+            256,
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.979891724671307,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "relu",
+        "hidden_layer_sizes": [
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9783449342614076,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "tanh",
+        "hidden_layer_sizes": [
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9737045630317092,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "identity",
+        "hidden_layer_sizes": [
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9806651198762568,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "logistic",
+        "hidden_layer_sizes": [
+            128,
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9721577726218097,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "relu",
+        "hidden_layer_sizes": [
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9791183294663574,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "tanh",
+        "hidden_layer_sizes": [
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9644238205723125,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "identity",
+        "hidden_layer_sizes": [
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9814385150812065,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "logistic",
+        "hidden_layer_sizes": [
+            64,
+            32
+        ]
+    },
+    {
+        "accuracy": 0.9721577726218097,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "relu",
+        "hidden_layer_sizes": 32
+    },
+    {
+        "accuracy": 0.9760247486465584,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "tanh",
+        "hidden_layer_sizes": 32
+    },
+    {
+        "accuracy": 0.9636504253673627,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "identity",
+        "hidden_layer_sizes": 32
+    },
+    {
+        "accuracy": 0.9791183294663574,
+        "test_size": 0.25,
+        "random_state": 42,
+        "activation": "logistic",
+        "hidden_layer_sizes": 32
+    }
+]
